@@ -1,6 +1,42 @@
 @EmployeeApi_HostAddress = http://localhost:5228
+@token = {{login.response.body.token}}
 
-GET {{EmployeeApi_HostAddress}}/weatherforecast/
+### Login (get JWT token)
+# @name login
+POST {{EmployeeApi_HostAddress}}/api/Auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "Admin@123"
+}
+
+###
+
+### List all employees (requires JWT)
+GET {{EmployeeApi_HostAddress}}/api/Employee
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### Employee salaries for id 1
+GET {{EmployeeApi_HostAddress}}/api/Employee/1/salaries
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### Employee profile for id 1
+GET {{EmployeeApi_HostAddress}}/api/Employee/1/profile
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+### Employee leaves for id 1
+GET {{EmployeeApi_HostAddress}}/api/Employee/1/leaves
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
